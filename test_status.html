@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Order status tester</title></head>
+<body style="font-family:system-ui,Arial,sans-serif;max-width:600px;margin:40px auto;line-height:1.6">
+  <h2>Order status &mdash; tester</h2>
+  <p>Put in an <b>order_id</b> and its <b>code</b> (from a created order). Then:
+     "Check" is what the <b>customer</b> sees; "Advance" is the <b>hawker</b> moving it forward.</p>
+  <label>order_id <input id="oid" type="number" value="1" style="width:80px"></label>
+  &nbsp;&nbsp;
+  <label>code <input id="code" type="text" placeholder="e.g. 9846" style="width:100px"></label>
+  <div style="margin:16px 0">
+    <button id="check"   style="padding:10px 14px;cursor:pointer">Check status (customer)</button>
+    <button id="advance" style="padding:10px 14px;cursor:pointer">Advance status (hawker)</button>
+  </div>
+  <pre id="out" style="background:#f4f4f4;padding:12px;border-radius:8px;white-space:pre-wrap"></pre>
+  <script>
+    const out  = document.getElementById('out');
+    const oid  = () => document.getElementById('oid').value;
+    const code = () => document.getElementById('code').value;
+    document.getElementById('check').onclick = async () => {
+      out.textContent = 'Checking...';
+      try {
+        const res = await fetch(`api/get_order_status.php?order_id=${oid()}&code=${encodeURIComponent(code())}`);
+        out.textContent = JSON.stringify(await res.json(), null, 2);
+      } catch (e) { out.textContent = 'Error: ' + e.message; }
+    };
+    document.getElementById('advance').onclick = async () => {
+      out.textContent = 'Advancing...';
+      try {
+        const res = await fetch('api/update_order_status.php', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ order_id: Number(oid()), action: 'advance' })
+        });
+        out.textContent = JSON.stringify(await res.json(), null, 2);
+      } catch (e) { out.textContent = 'Error: ' + e.message; }
+    };
+  </script>
+</body>
+</html>
