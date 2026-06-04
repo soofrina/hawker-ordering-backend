@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Sales reports (hawker)</title></head>
+<body style="font-family:system-ui,Arial,sans-serif;max-width:700px;margin:30px auto;line-height:1.5">
+  <h2>Sales reports (hawker test)</h2>
+  <p>Stall <input id="sid" type="number" value="1" style="width:64px">
+     <label style="margin-left:16px"><input id="daily" type="radio" name="period" checked> Daily</label>
+     <label style="margin-left:8px"><input id="monthly" type="radio" name="period"> Monthly</label>
+  </p>
+
+  <div id="controls"></div>
+  <button id="go" style="padding:6px 12px;cursor:pointer;margin:8px 0">Load report</button>
+  <div id="report"></div>
+
+  <script>
+    const report = document.getElementById('report');
+    const sid = () => document.getElementById('sid').value;
+    const controls = document.getElementById('controls');
+    const daily = document.getElementById('daily');
+    const monthly = document.getElementById('monthly');
+
+    function updateControls() {
+      if (daily.checked) {
+        controls.innerHTML = `Date <input id="date" type="date" value="${new Date().toISOString().split('T')[0]}">`;
+      } else {
+        const now = new Date();
+        controls.innerHTML = `Year <input id="year" type="number" value="${now.getFullYear()}" style="width:70px">
+          Month <input id="month" type="number" min="1" max="12" value="${now.getMonth()+1}" style="width:50px">`;
+      }
+    }
+
+    async function load() {
+      try {
+        let res, data;
+        if (daily.checked) {
+          const date = document.getElementById('date').value;
+          res = await fetch(`api/daily_sales.php?stall_id=${sid()}&date=${date}`);
+          data = await res.json();
+          if (!data.ok) { report.innerHTML = '<p style="color:#b00">'+data.error+'</p>'; return; }
+          report.innerHTML = `<div style="background:#f9f9f9;padding:16px;border-radius:8px">
+            <h3>${data.date}</h3>
+            <p><b>Total orders:</b> ${data.summary.total_orders} | <b>Revenue:</b> $${data.summary.total_revenue.toFixed(2)}</p>
+            <p><span style="color:#090">${data.summary.collected} collected</span> &middot;
+               <span style="color:#f90">${data.summary.pending} pending</span> &middot;
+               <span style="color:#999">${data.summary.cancelled} cancelled</span></p>
+            <h4>By item</h4>
+            <table style="width:100%;border-collapse:collapse">
+              <tr style="border-bottom:1px solid #ddd"><th style="text-align:left">Item</th><th>Qty</th><th>Revenue</th></tr>
+              ${data.by_item.map(i => `<tr style="border-bottom:1px solid #eee">
+                <td>${i.item_name}</td><td style="text-align:center">${i.total_qty}</td><td style="text-align:right">$${i.total_revenue.toFixed(2)}</td>
+              </tr>`).join('')}
+            </table>
+          </div>`;
+        } else {
+          const year = document.getElementById('year').value;
+          const month = document.getElementById('month').value;
+          res = await fetch(`api/monthly_sales.php?stall_id=${sid()}&year=${year}&month=${month}`);
+          data = await res.json();
+          if (!data.ok) { report.innerHTML = '<p style="color:#b00">'+data.error+'</p>'; return; }
+          report.innerHTML = `<div style="background:#f9f9f9;padding:16px;border-radius:8px">
+            <h3>${data.month}/${data.year}</h3>
+            <p><b>Total orders:</b> ${data.summary.total_orders} | <b>Revenue:</b> $${data.summary.total_revenue.toFixed(2)}</p>
+            <p><span style="color:#090">${data.summary.collected} collected</span> &middot; <span style="color:#999">${data.summary.cancelled} cancelled</span></p>
+            <h4>By day (top 10)</h4>
+            ${data.by_day.slice(0,10).map(d => `<div style="display:flex;justify-content:space-between;padding:6px;border-bottom:1px solid #eee">
+              <b>${d.day}</b> <span>${d.orders} orders, $${d.revenue.toFixed(2)}</span>
+            </div>`).join('')}
+            <h4>By item</h4>
+            <table style="width:100%;border-collapse:collapse">
+              <tr style="border-bottom:1px solid #ddd"><th style="text-align:left">Item</th><th>Qty</th><th>Revenue</th></tr>
+              ${data.by_item.map(i => `<tr style="border-bottom:1px solid #eee">
+                <td>${i.item_name}</td><td style="text-align:center">${i.total_qty}</td><td style="text-align:right">$${i.total_revenue.toFixed(2)}</td>
+              </tr>`).join('')}
+            </table>
+          </div>`;
+        }
+      } catch (e) { report.innerHTML = '<p style="color:#b00">' + e.message + '</p>'; }
+    }
+
+    daily.onchange = monthly.onchange = updateControls;
+    document.getElementById('go').onclick = load;
+    updateControls();
+  </script>
+</body>
+</html>

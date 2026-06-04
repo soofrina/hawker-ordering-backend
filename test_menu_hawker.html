@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Menu management (hawker)</title></head>
+<body style="font-family:system-ui,Arial,sans-serif;max-width:800px;margin:30px auto;line-height:1.5">
+  <h2>Menu management (hawker test)</h2>
+  <p>Stall <input id="sid" type="number" value="1" style="width:64px"></p>
+
+  <fieldset style="margin:20px 0;padding:12px;border:1px solid #ccc;border-radius:8px">
+    <legend>Add new item</legend>
+    <div>Item name <input id="addName" type="text" style="width:200px"></div>
+    <div>Price <input id="addPrice" type="number" step="0.01" value="4.50" style="width:80px"></div>
+    <div>Description <input id="addDesc" type="text" style="width:300px" placeholder="optional"></div>
+    <div>Image URL <input id="addImg" type="text" style="width:300px" placeholder="https://imgur.com/... or any image link"></div>
+    <div style="margin-top:8px"><button id="addBtn" style="padding:6px 12px;cursor:pointer">Add item</button></div>
+  </fieldset>
+
+  <div style="display:flex;gap:12px;margin:16px 0">
+    <button id="refresh" style="padding:6px 12px;cursor:pointer">Refresh menu</button>
+  </div>
+
+  <div id="menu"></div>
+
+  <script>
+    const menu = document.getElementById('menu');
+    const sid = () => document.getElementById('sid').value;
+    
+    async function load() {
+      try {
+        const res = await fetch(`api/get_menu_items.php?stall_id=${sid()}`);
+        const data = await res.json();
+        if (!data.ok) { menu.innerHTML = '<p style="color:#b00">' + data.error + '</p>'; return; }
+        menu.innerHTML = data.items.map(item => `<div style="border:1px solid #ddd;padding:12px;margin:12px 0;border-radius:6px;display:flex;gap:12px">
+          ${item.image_url ? `<img src="${item.image_url}" style="width:120px;height:120px;object-fit:cover;border-radius:4px;flex-shrink:0">` : `<div style="width:120px;height:120px;background:#e0e0e0;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#999;flex-shrink:0;font-size:12px">No image</div>`}
+          <div style="flex:1">
+            <div style="display:flex;justify-content:space-between;align-items:start">
+              <div>
+                <b style="font-size:16px">${item.item_name}</b><br>
+                <span style="color:#666;font-size:13px">${item.description || '(no description)'}</span><br>
+                <span style="font-size:18px;font-weight:bold;color:#090">$${item.base_price}</span>
+              </div>
+              <div style="text-align:right">
+                <button onclick="toggle(${item.item_id})" style="padding:6px 10px;cursor:pointer;margin:2px;font-size:13px;${item.availability ? 'background:#090;color:white' : 'background:#ddd'}">
+                  ${item.availability ? '✓ Available' : '✗ Sold out'}
+                </button>
+                <br>
+                <button onclick="editItem(${item.item_id})" style="padding:4px 8px;cursor:pointer;margin:2px;font-size:12px">Edit</button>
+                <button onclick="deleteItem(${item.item_id})" style="padding:4px 8px;cursor:pointer;margin:2px;font-size:12px;color:#b00">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>`).join('') || '<p style="color:#666">No items yet. Add one above.</p>';
+      } catch (e) { menu.innerHTML = '<p style="color:#b00">' + e.message + '</p>'; }
+    }
+
+    async function toggle(itemId) {
+      await fetch('api/toggle_item_availability.php', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ item_id: itemId })
+      });
+      load();
+    }
+
+    async function deleteItem(itemId) {
+      if (!confirm('Delete this item?')) return;
+      await fetch('api/delete_menu_item.php', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ item_id: itemId })
+      });
+      load();
+    }
+
+    function editItem(itemId) {
+      alert('Edit UI coming soon — for now, delete and re-add.');
+    }
+
+    document.getElementById('addBtn').onclick = async () => {
+      const name = document.getElementById('addName').value.trim();
+      const price = parseFloat(document.getElementById('addPrice').value);
+      const desc = document.getElementById('addDesc').value.trim();
+      const img = document.getElementById('addImg').value.trim();
+      if (!name || !price) { alert('Name and price required'); return; }
+      await fetch('api/add_menu_item.php', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ stall_id: Number(sid()), item_name: name, base_price: price, description: desc, image_url: img })
+      });
+      document.getElementById('addName').value = '';
+      document.getElementById('addPrice').value = '4.50';
+      document.getElementById('addDesc').value = '';
+      document.getElementById('addImg').value = '';
+      load();
+    };
+
+    document.getElementById('refresh').onclick = load;
+    load();
+  </script>
+</body>
+</html>
