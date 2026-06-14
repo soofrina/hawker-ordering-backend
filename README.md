@@ -1,13 +1,13 @@
 # Backend starter — Hawker Ordering Platform (PHP + filess.io)
 
-A tiny PHP + MySQL backend. No framework. Each file in `api/` is one endpoint
+A PHP + MySQL backend. Each file in `api/` is one endpoint
 that runs a query and returns JSON.
 
 ## Files
-- `config.php` — your filess.io credentials (DO NOT commit — add to .gitignore)
-- `db.php` — the single shared PDO connection; every endpoint uses `db()`
-- `test_connection.php` — run this first to confirm PHP reaches filess.io
-- `schema.sql` — creates all the tables (run once in Adminer / Workbench)
+- `config.php` - filess.io credentials (DO NOT commit — add to .gitignore)
+- `db.php` 
+- `test_connection.php` 
+- `schema.sql`
 - `api/get_menu.php` — example endpoint returning the menu as JSON
 
 ## Setup (in order)
