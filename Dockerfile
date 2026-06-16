@@ -12,4 +12,10 @@ RUN sed -i 's/Listen 80/Listen 10000/' /etc/apache2/ports.conf \
  && sed -i 's/:80/:10000/' /etc/apache2/sites-available/000-default.conf
 EXPOSE 10000
 
-CMD ["apache2-foreground"]
+# On every start: make sure the uploads folder exists and is owned by
+# www-data (Apache/PHP run as www-data). This must happen at start time,
+# not build time, because the persistent disk mounts over /uploads after
+# the image is built — so its ownership has to be fixed each boot.
+CMD mkdir -p /var/www/html/uploads \
+ && chown -R www-data:www-data /var/www/html/uploads \
+ && apache2-foreground
