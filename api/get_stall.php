@@ -1,9 +1,7 @@
 <?php
 // ════════════════════════════════════════════════════════════════
-// GET MENU ITEMS (GET) — list all items for a stall.
-//   api/get_menu_items.php?stall_id=1
-// (quantity = remaining stock; the dashboard marks an item sold-out
-//  when it hits 0.)
+// GET STALL (GET) — a stall's profile, for the Settings screen.
+//   api/get_stall.php?stall_id=1
 // ════════════════════════════════════════════════════════════════
 require __DIR__ . '/../db.php';
 header('Access-Control-Allow-Origin: *');
@@ -19,12 +17,17 @@ if (!$stallId) {
 try {
     $pdo = db();
     $stmt = $pdo->prepare(
-        "SELECT item_id, item_name, description, base_price, image_url, availability, quantity
-         FROM menu_item WHERE stall_id = ? ORDER BY item_name"
+        "SELECT stall_id, stall_name, location, phone, email, image_url, open_status, is_active
+         FROM stall WHERE stall_id = ?"
     );
     $stmt->execute([$stallId]);
-    $items = $stmt->fetchAll();
-    echo json_encode(['ok' => true, 'stall_id' => (int)$stallId, 'items' => $items]);
+    $stall = $stmt->fetch();
+    if (!$stall) {
+        http_response_code(404);
+        echo json_encode(['ok' => false, 'error' => 'Stall not found']);
+        exit;
+    }
+    echo json_encode(['ok' => true, 'stall' => $stall]);
 } catch (Throwable $e) {
     http_response_code(500);
     echo json_encode(['ok' => false, 'error' => $e->getMessage()]);

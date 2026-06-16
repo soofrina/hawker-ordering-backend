@@ -76,6 +76,22 @@ CREATE TABLE order_item (
     FOREIGN KEY (item_id)  REFERENCES menu_item(item_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE payment_issue (
+    issue_id      INT AUTO_INCREMENT PRIMARY KEY,
+    order_id      INT NOT NULL,
+    stall_id      INT NOT NULL,
+    reported_by   INT NOT NULL,                          -- the hawker (a user) who raised it
+    note          VARCHAR(255),                          -- e.g. "customer says PayNow paid, nothing received"
+    issue_status  VARCHAR(20) NOT NULL DEFAULT 'open',   -- open -> resolved / rejected, set by superadmin
+    created_at    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    resolved_at   DATETIME NULL,
+    resolved_by   INT NULL,                              -- the superadmin who closed it
+    FOREIGN KEY (order_id)    REFERENCES `order`(order_id),
+    FOREIGN KEY (stall_id)    REFERENCES stall(stall_id),
+    FOREIGN KEY (reported_by) REFERENCES `user`(user_id),
+    FOREIGN KEY (resolved_by) REFERENCES `user`(user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- ── Optional seed data so you can test straight away ──
 INSERT INTO `user` (name, role, status) VALUES ('Demo Hawker', 'hawker', 'active');
 INSERT INTO stall (stall_name, location, stall_owner_id) VALUES ('Ah Hock Chicken Rice', 'Blk 123', 1);

@@ -1,8 +1,9 @@
 <?php
 // ════════════════════════════════════════════════════════════════
-// UPDATE MENU ITEM (POST)
-//   { "item_id": 1, "item_name": "...", "base_price": 5.00, ... }
-// Partial update — only sends fields that changed.
+// UPDATE STALL PROFILE (POST)
+//   { "stall_id": 1, "stall_name": "...", "phone": "...", "email": "...", "image_url": "..." }
+// Partial — only sends fields that changed.
+// (NOTE: in production, stall_id comes from the logged-in hawker.)
 // ════════════════════════════════════════════════════════════════
 require __DIR__ . '/../db.php';
 header('Access-Control-Allow-Origin: *');
@@ -22,47 +23,32 @@ if (!is_array($input)) {
     echo json_encode(['ok' => false, 'error' => 'Invalid JSON']);
     exit;
 }
-
-$itemId = $input['item_id'] ?? null;
-if (!$itemId) {
+$stallId = $input['stall_id'] ?? null;
+if (!$stallId) {
     http_response_code(400);
-    echo json_encode(['ok' => false, 'error' => 'Need item_id']);
+    echo json_encode(['ok' => false, 'error' => 'Need stall_id']);
     exit;
 }
 
-// Build the SET clause from whichever fields were sent.
 $updates = [];
-$params = [];                       // values for the SET placeholders, in order
-if (isset($input['item_name'])) {
-    $updates[] = 'item_name = ?';
-    $params[] = trim($input['item_name']);
+$params = [];
+foreach (['stall_name', 'phone', 'email', 'image_url'] as $f) {
+    if (isset($input[$f])) {
+        $updates[] = "$f = ?";
+        $params[] = trim($input[$f]);
+    }
 }
-if (isset($input['description'])) {
-    $updates[] = 'description = ?';
-    $params[] = trim($input['description']);
-}
-if (isset($input['base_price'])) {
-    $updates[] = 'base_price = ?';
-    $params[] = $input['base_price'];
-}
-if (isset($input['image_url'])) {
-    $updates[] = 'image_url = ?';
-    $params[] = trim($input['image_url']);
-}
-
 if (empty($updates)) {
     http_response_code(400);
     echo json_encode(['ok' => false, 'error' => 'No fields to update']);
     exit;
 }
-
-$params[] = $itemId;                // WHERE item_id = ?  → must be the LAST bound value
+$params[] = $stallId;
 
 try {
     $pdo = db();
-    $sql = "UPDATE menu_item SET " . implode(', ', $updates) . " WHERE item_id = ?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute($params);
+    $sql = "UPDATE stall SET " . implode(', ', $updates) . " WHERE stall_id = ?";
+    $pdo->prepare($sql)->execute($params);
     echo json_encode(['ok' => true]);
 } catch (Throwable $e) {
     http_response_code(500);

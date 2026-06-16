@@ -4,7 +4,8 @@
 <body style="font-family:system-ui,Arial,sans-serif;max-width:600px;margin:40px auto;line-height:1.6">
   <h2>Order status &mdash; tester</h2>
   <p>Put in an <b>order_id</b> and its <b>code</b> (from a created order). Then:
-     "Check" is what the <b>customer</b> sees; "Advance" is the <b>hawker</b> moving it forward.</p>
+     "Check" is what the <b>customer</b> sees; "Advance" is the <b>hawker</b> moving it forward;
+     "Report payment issue" is the hawker escalating a payment dispute to the superadmin.</p>
   <label>order_id <input id="oid" type="number" value="1" style="width:80px"></label>
   &nbsp;&nbsp;
   <label>code <input id="code" type="text" placeholder="e.g. 9846" style="width:100px"></label>
@@ -12,11 +13,22 @@
     <button id="check"   style="padding:10px 14px;cursor:pointer">Check status (customer)</button>
     <button id="advance" style="padding:10px 14px;cursor:pointer">Advance status (hawker)</button>
   </div>
+
+  <div style="margin:16px 0;padding:14px;border:1px solid #e0c0c0;border-radius:8px;background:#fbf3f3">
+    <label style="display:block;margin-bottom:8px">
+      Payment issue note (optional)<br>
+      <input id="note" type="text" placeholder="e.g. customer says PayNow paid, nothing received"
+             style="width:100%;padding:6px;box-sizing:border-box">
+    </label>
+    <button id="report" style="padding:10px 14px;cursor:pointer">Report payment issue (hawker)</button>
+  </div>
+
   <pre id="out" style="background:#f4f4f4;padding:12px;border-radius:8px;white-space:pre-wrap"></pre>
   <script>
     const out  = document.getElementById('out');
     const oid  = () => document.getElementById('oid').value;
     const code = () => document.getElementById('code').value;
+    const note = () => document.getElementById('note').value;
     document.getElementById('check').onclick = async () => {
       out.textContent = 'Checking...';
       try {
@@ -30,6 +42,16 @@
         const res = await fetch('api/update_order_status.php', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ order_id: Number(oid()), action: 'advance' })
+        });
+        out.textContent = JSON.stringify(await res.json(), null, 2);
+      } catch (e) { out.textContent = 'Error: ' + e.message; }
+    };
+    document.getElementById('report').onclick = async () => {
+      out.textContent = 'Reporting payment issue...';
+      try {
+        const res = await fetch('api/report_payment_issue.php', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ order_id: Number(oid()), note: note() })
         });
         out.textContent = JSON.stringify(await res.json(), null, 2);
       } catch (e) { out.textContent = 'Error: ' + e.message; }
