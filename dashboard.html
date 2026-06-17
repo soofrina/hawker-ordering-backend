@@ -468,6 +468,18 @@ async function renderSales(){
   const top=(d.by_item||[]);
   const maxItem=Math.max(1,...top.map(t=>Number(t.total_revenue)));
   const topHTML=top.map(t=>`<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px"><b>${esc(t.item_name)}</b><span style="color:var(--muted);font-family:var(--mono)">${t.total_qty} sold · ${money(t.total_revenue)}</span></div><div class="bar"><span style="width:${Math.round(Number(t.total_revenue)/maxItem*100)}%"></span></div></div>`).join("");
+  const meal=d.by_meal||{breakfast:{orders:0,revenue:0},lunch:{orders:0,revenue:0},dinner:{orders:0,revenue:0}};
+  const mealDefs=[["breakfast","🌅 Breakfast","var(--kaya)"],["lunch","☀️ Lunch","var(--jade)"],["dinner","🌙 Dinner","var(--dusk)"]];
+  const maxMeal=Math.max(1,meal.breakfast.revenue,meal.lunch.revenue,meal.dinner.revenue);
+  const mealHTML=mealDefs.map(([k,lab,tone])=>{
+    const m=meal[k]||{orders:0,revenue:0};
+    return `<div class="card stat" style="text-align:left">
+      <div class="lab" style="font-size:13px">${lab}</div>
+      <div class="val" style="font-size:22px;margin:4px 0">${money(m.revenue)}</div>
+      <div class="hint" style="margin-bottom:6px">${m.orders} order${m.orders!==1?"s":""}</div>
+      <div class="bar"><span style="width:${Math.round(Number(m.revenue)/maxMeal*100)}%;background:${tone}"></span></div>
+    </div>`;
+  }).join("");
   c.innerHTML=picker+`
     <div class="grid3" style="margin-bottom:20px">
       ${stat("sales","Total sales","$"+Math.round(s.total_revenue).toLocaleString(),"var(--jade)")}
@@ -475,8 +487,27 @@ async function renderSales(){
       ${stat("sales","Avg order",money(avg),"var(--chilli)")}
     </div>
     <div class="card" style="padding:16px;margin-bottom:20px"><h3 class="sectiontitle">Daily revenue</h3><div class="daybars">${bars}</div></div>
-    <div class="card" style="padding:16px"><h3 class="sectiontitle">🔥 Top Sellers This Month</h3>${topHTML||'<p class="hint">No items sold.</p>'}</div>
-    <p class="hint" style="margin-top:12px">Meal-period split (breakfast/lunch/dinner) comes when we extend this endpoint.</p>`;
+    <h3 class="sectiontitle">By time of day</h3>
+    <div class="grid3" style="margin-bottom:20px">${mealHTML}</div>
+    <div class="card" style="padding:16px;margin-bottom:20px"><h3 class="sectiontitle">🔥 Top Sellers This Month</h3>${topHTML||'<p class="hint">No items sold.</p>'}</div>
+    <div class="card" style="padding:16px">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <h3 class="sectiontitle" style="margin:0">✨ AI insights</h3>
+        <button class="btn ghost" id="aiBtn" style="margin-left:auto">Get insights</button>
+      </div>
+      <div id="aiBox" style="margin-top:10px"></div>
+    </div>`;
+  const aiBtn=document.getElementById("aiBtn");
+  if(aiBtn) aiBtn.onclick=()=>loadAiInsights(salesSel[0],salesSel[1]);
+}
+async function loadAiInsights(year,month){
+  const box=document.getElementById("aiBox"); if(!box) return;
+  box.innerHTML=`<p class="hint">Thinking it over…</p>`;
+  let r;
+  try{ r=await getJSON(`ai_insights.php?stall_id=${STALL_ID}&year=${year}&month=${month}`); }
+  catch(e){ box.innerHTML=`<p class="hint">Couldn't reach the server.</p>`; return; }
+  if(!r||!r.ok){ box.innerHTML=`<p class="hint">${esc((r&&r.error)||"Couldn't generate insights.")}</p>`; return; }
+  box.innerHTML=`<p style="font-size:14px;line-height:1.5;margin:0">${esc(r.insight)}</p><p class="hint" style="margin-top:8px">AI-generated — use your judgement.</p>`;
 }
 
 // ── PAST ORDERS (wired) ─────────────────────────────────────────
