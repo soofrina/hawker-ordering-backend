@@ -1,0 +1,677 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
+/* HawkerGo — Admin portal (cream/gold, matches customer + hawker) */
+
+body.hg-admin-portal,
+body.hg-admin-login-body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  background: #fdf8ee !important;
+  color: #1f1f1f;
+}
+
+/* —— Animated Admin brand —— */
+
+.hg-admin-brand-showcase {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.hg-admin-brand-showcase--sm { gap: 0.55rem; }
+
+.hg-admin-brand-mark {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f5b800 0%, #ff8c00 55%, #e0a600 100%);
+  background-size: 200% 200%;
+  color: #1f1f1f;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  box-shadow: 0 8px 24px rgba(245, 184, 0, 0.45);
+  animation: hgAdminMarkShift 4s ease-in-out infinite, hgAdminMarkFloat 3s ease-in-out infinite;
+}
+
+.hg-admin-brand-showcase--sm .hg-admin-brand-mark {
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+}
+
+.hg-admin-brand-mark i {
+  animation: hgAdminIconWiggle 2.5s ease-in-out infinite;
+}
+
+.hg-admin-brand-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(245, 184, 0, 0.35);
+  animation: hgAdminRingPulse 2.2s ease-out infinite;
+}
+
+.hg-admin-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+
+.hg-admin-brand-word {
+  display: inline-flex;
+  align-items: baseline;
+  font-weight: 800;
+  font-size: 2.35rem;
+  letter-spacing: -0.03em;
+}
+
+.hg-admin-brand-showcase--sm .hg-admin-brand-word {
+  font-size: 1.45rem;
+}
+
+.hg-admin-brand-letter {
+  display: inline-block;
+  color: var(--c, #f5b800);
+  animation:
+    hgAdminLetterIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards,
+    hgAdminLetterWave 2.8s ease-in-out 0.6s infinite;
+  animation-delay: calc(var(--i) * 0.08s), calc(0.6s + var(--i) * 0.15s);
+}
+
+.hg-admin-brand-sub {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6b6560;
+  margin-top: 0.15rem;
+  animation: hgAdminSubFade 0.8s ease 0.5s backwards;
+}
+
+.hg-admin-brand-showcase--lg .hg-admin-brand-sub {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.85rem;
+}
+
+@keyframes hgAdminLetterIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.35) rotate(-10deg); }
+  to { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+}
+
+@keyframes hgAdminLetterWave {
+  0%, 100% { transform: translateY(0) scale(1); }
+  14% { transform: translateY(-8px) scale(1.1); }
+  28% { transform: translateY(0) scale(1); }
+}
+
+@keyframes hgAdminMarkFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes hgAdminMarkShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes hgAdminIconWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-12deg); }
+  75% { transform: rotate(12deg); }
+}
+
+@keyframes hgAdminRingPulse {
+  0% { transform: scale(0.92); opacity: 0.7; }
+  70% { transform: scale(1.18); opacity: 0; }
+  100% { transform: scale(1.18); opacity: 0; }
+}
+
+@keyframes hgAdminSubFade {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Feature rotator (login) */
+
+.hg-admin-feature-letter {
+  display: inline-block;
+  color: var(--c, #f5b800);
+  animation:
+    hgAdminLetterIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards,
+    hgAdminLetterWave 2.8s ease-in-out 0.6s infinite;
+  animation-delay: calc(var(--i) * 0.06s), calc(0.6s + var(--i) * 0.12s);
+}
+
+.hg-admin-feature-animated {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+/* Login layout */
+
+.hg-admin-login-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.hg-admin-login-showcase {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  background: linear-gradient(145deg, #1f1f1f 0%, #3d3018 45%, #1f1f1f 100%);
+  overflow: hidden;
+}
+
+.hg-admin-login-showcase::before,
+.hg-admin-login-showcase::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hg-admin-login-showcase::before {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(245, 184, 0, 0.25) 0%, transparent 70%);
+  top: -80px;
+  right: -80px;
+  animation: hgAdminGlowDrift 8s ease-in-out infinite;
+}
+
+.hg-admin-login-showcase::after {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255, 140, 0, 0.18) 0%, transparent 70%);
+  bottom: -60px;
+  left: -40px;
+  animation: hgAdminGlowDrift 10s ease-in-out infinite reverse;
+}
+
+@keyframes hgAdminGlowDrift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(20px, 15px); }
+}
+
+.hg-admin-login-showcase-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 440px;
+}
+
+.hg-admin-login-showcase .hg-admin-brand-showcase {
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.hg-admin-login-showcase .hg-admin-brand-word {
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  justify-content: center;
+}
+
+.hg-admin-login-showcase .hg-admin-brand-mark {
+  width: 72px;
+  height: 72px;
+  font-size: 1.75rem;
+}
+
+.hg-admin-feature-rotator {
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(245, 184, 0, 0.25);
+  border-radius: 18px;
+}
+
+.hg-admin-feature-rotator-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 0.5rem;
+}
+
+.hg-admin-feature-rotator-body {
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.hg-admin-feature-rotator-body.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hg-admin-feature-rotator-body.is-exiting {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.hg-admin-login-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+}
+
+.hg-admin-login-card {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 22px;
+  padding: 2rem 1.75rem;
+  box-shadow: 0 20px 50px rgba(45, 35, 15, 0.1);
+  border: 1px solid rgba(45, 35, 15, 0.06);
+}
+
+.hg-admin-login-card h1 {
+  font-size: 1.65rem;
+  font-weight: 800;
+  margin: 0 0 0.35rem;
+}
+
+.hg-admin-login-card .lead {
+  color: #6b6560;
+  font-size: 0.92rem;
+  margin-bottom: 1.5rem;
+}
+
+.hg-admin-form-group {
+  margin-bottom: 1rem;
+}
+
+.hg-admin-form-group label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+}
+
+.hg-admin-form-group input {
+  width: 100%;
+  border: 1px solid rgba(45, 35, 15, 0.12);
+  border-radius: 12px;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.95rem;
+}
+
+.hg-admin-form-group select {
+  width: 100%;
+  border: 1px solid rgba(45, 35, 15, 0.12);
+  border-radius: 12px;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.95rem;
+  background: #fff;
+}
+
+.hg-admin-reset-box {
+  background: rgba(245, 184, 0, 0.12);
+  border: 1px solid rgba(245, 184, 0, 0.35);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  word-break: break-all;
+}
+
+.hg-admin-reset-link {
+  color: #c47f00;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.hg-admin-alert {
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.hg-admin-alert--error {
+  background: rgba(220, 53, 69, 0.1);
+  color: #a71d2a;
+  border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+.hg-admin-alert--success {
+  background: rgba(40, 167, 69, 0.1);
+  color: #155724;
+  border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.hg-admin-footer-links {
+  text-align: center;
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+}
+
+.hg-admin-footer-links a {
+  color: #ff8c00;
+  font-weight: 600;
+}
+
+/* Inner admin shell overrides */
+
+body.hg-admin-portal .preloader .path {
+  stroke: #f5b800 !important;
+}
+
+body.hg-admin-portal .hg-admin-topbar,
+body.hg-admin-portal .header {
+  background: #fff !important;
+  box-shadow: 0 2px 16px rgba(45, 35, 15, 0.06) !important;
+  border-bottom: 1px solid rgba(45, 35, 15, 0.08);
+}
+
+body.hg-admin-portal .hg-admin-brand-link,
+body.hg-admin-portal .hg-admin-brand-link:hover {
+  text-decoration: none;
+  color: inherit;
+  padding: 0.25rem 0;
+}
+
+body.hg-admin-portal .hg-admin-logout-link {
+  font-weight: 700;
+  color: #1f1f1f !important;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(45, 35, 15, 0.12);
+}
+
+body.hg-admin-portal .hg-admin-logout-link:hover {
+  background: rgba(245, 184, 0, 0.15);
+  color: #1f1f1f !important;
+}
+
+body.hg-admin-portal .left-sidebar,
+body.hg-admin-portal .hg-admin-sidebar {
+  background: #fff !important;
+  box-shadow: 4px 0 24px rgba(45, 35, 15, 0.04);
+}
+
+body.hg-admin-portal .sidebar-nav ul li a,
+body.hg-admin-portal #sidebarnav li a {
+  color: #1f1f1f !important;
+  font-weight: 600;
+  border-radius: 12px;
+  margin: 0.1rem 0.5rem;
+  transition: background 0.15s ease;
+}
+
+body.hg-admin-portal #sidebarnav li a:hover,
+body.hg-admin-portal #sidebarnav li a.active {
+  background: rgba(245, 184, 0, 0.18) !important;
+  color: #1f1f1f !important;
+}
+
+body.hg-admin-portal #sidebarnav li a.active {
+  background: #f5b800 !important;
+}
+
+body.hg-admin-portal .nav-label {
+  color: #6b6560 !important;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+body.hg-admin-portal .page-wrapper,
+body.fix-header:not(.hg-admin-login-body) .page-wrapper {
+  background: #fdf8ee !important;
+}
+
+body.fix-header:not(.hg-admin-login-body) {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  background: #fdf8ee !important;
+}
+
+body.fix-header:not(.hg-admin-login-body) .header {
+  background: #fff !important;
+  box-shadow: 0 2px 16px rgba(45, 35, 15, 0.06) !important;
+  border-bottom: 1px solid rgba(45, 35, 15, 0.08);
+}
+
+body.fix-header:not(.hg-admin-login-body) .left-sidebar {
+  background: #fff !important;
+  box-shadow: 4px 0 24px rgba(45, 35, 15, 0.04);
+}
+
+body.fix-header:not(.hg-admin-login-body) #sidebarnav li a {
+  color: #1f1f1f !important;
+  font-weight: 600;
+  border-radius: 12px;
+  margin: 0.1rem 0.5rem;
+}
+
+body.fix-header:not(.hg-admin-login-body) #sidebarnav li a:hover,
+body.fix-header:not(.hg-admin-login-body) #sidebarnav li a.active {
+  background: #f5b800 !important;
+  color: #1f1f1f !important;
+}
+
+body.fix-header:not(.hg-admin-login-body) .nav-label {
+  color: #6b6560 !important;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+body.fix-header:not(.hg-admin-login-body) .card {
+  border-radius: 18px !important;
+  border: 1px solid rgba(45, 35, 15, 0.06) !important;
+  box-shadow: 0 10px 28px rgba(45, 35, 15, 0.05) !important;
+}
+
+body.fix-header:not(.hg-admin-login-body) .card-outline-primary .card-header {
+  background: linear-gradient(135deg, #f5b800, #e0a600) !important;
+  border: none !important;
+}
+
+body.fix-header:not(.hg-admin-login-body) .card-outline-primary .card-header h4,
+body.fix-header:not(.hg-admin-login-body) .card-header .text-white {
+  color: #1f1f1f !important;
+  font-weight: 800 !important;
+}
+
+body.fix-header:not(.hg-admin-login-body) .btn-primary {
+  background: #f5b800 !important;
+  border-color: #f5b800 !important;
+  color: #1f1f1f !important;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+body.fix-header:not(.hg-admin-login-body) .btn-primary:hover {
+  background: #e0a600 !important;
+  border-color: #e0a600 !important;
+}
+
+body.fix-header:not(.hg-admin-login-body) .preloader .path {
+  stroke: #f5b800 !important;
+}
+
+body.fix-header:not(.hg-admin-login-body) .media-left span i,
+body.fix-header:not(.hg-admin-login-body) .card .fa {
+  color: #f5b800;
+}
+
+/* Inner admin shell overrides */
+
+body.hg-admin-portal .page-wrapper {
+  background: #fdf8ee !important;
+}
+
+body.hg-admin-portal .card {
+  border-radius: 18px !important;
+  border: 1px solid rgba(45, 35, 15, 0.06) !important;
+  box-shadow: 0 10px 28px rgba(45, 35, 15, 0.05) !important;
+}
+
+body.hg-admin-portal .card.p-30,
+body.hg-admin-portal .card.p-3 {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.hg-admin-portal .card.p-30:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(45, 35, 15, 0.08) !important;
+}
+
+body.hg-admin-portal .card-outline-primary {
+  border: none !important;
+}
+
+body.hg-admin-portal .card-outline-primary .card-header,
+body.hg-admin-portal .card-header.bg-primary {
+  background: linear-gradient(135deg, #f5b800, #e0a600) !important;
+  border: none !important;
+  border-radius: 18px 18px 0 0 !important;
+}
+
+body.hg-admin-portal .card-outline-primary .card-header h4,
+body.hg-admin-portal .card-header .text-white {
+  color: #1f1f1f !important;
+  font-weight: 800 !important;
+}
+
+body.hg-admin-portal .btn-primary {
+  background: #f5b800 !important;
+  border-color: #f5b800 !important;
+  color: #1f1f1f !important;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+body.hg-admin-portal .btn-primary:hover {
+  background: #e0a600 !important;
+  border-color: #e0a600 !important;
+  color: #1f1f1f !important;
+}
+
+body.hg-admin-portal .btn-success {
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+body.hg-admin-portal .btn-warning {
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+body.hg-admin-portal .btn-info {
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+body.hg-admin-portal .thead-dark th {
+  background: #1f1f1f !important;
+  border-color: #1f1f1f !important;
+}
+
+body.hg-admin-portal .table-striped tbody tr:nth-of-type(odd) {
+  background: rgba(245, 184, 0, 0.05) !important;
+}
+
+body.hg-admin-portal .media-left span i,
+body.hg-admin-portal .card .fa {
+  color: #f5b800;
+}
+
+body.hg-admin-portal .footer {
+  background: transparent !important;
+  color: #6b6560;
+}
+
+/* Dashboard hero */
+
+.hg-admin-hero {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(245, 184, 0, 0.2);
+  box-shadow: 0 16px 40px rgba(45, 35, 15, 0.08);
+}
+
+.hg-admin-hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, #1f1f1f 0%, #3d3018 50%, #f5b800 180%);
+}
+
+.hg-admin-hero-inner {
+  position: relative;
+  z-index: 1;
+  padding: 1.75rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.hg-admin-hero-copy h2 {
+  margin: 0 0 0.35rem;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.65rem;
+}
+
+.hg-admin-hero-copy p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.92rem;
+}
+
+.hg-admin-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(245, 184, 0, 0.2);
+  border: 1px solid rgba(245, 184, 0, 0.35);
+  color: #f5b800;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 900px) {
+  .hg-admin-login-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .hg-admin-login-showcase {
+    min-height: 42vh;
+    padding: 2rem 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hg-admin-brand-mark,
+  .hg-admin-brand-mark i,
+  .hg-admin-brand-ring,
+  .hg-admin-brand-letter,
+  .hg-admin-feature-letter {
+    animation: none !important;
+  }
+}

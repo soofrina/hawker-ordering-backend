@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="100%" height="100%" fill="#f7f3ef"/>
+  <g fill="#d49a6a" stroke="#a36f4a" stroke-width="4">
+    <ellipse cx="400" cy="300" rx="280" ry="160" />
+    <ellipse cx="320" cy="260" rx="60" ry="40" />
+    <ellipse cx="430" cy="240" rx="70" ry="45" />
+    <ellipse cx="490" cy="300" rx="50" ry="35" />
+  </g>
+  <g fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="36" text-anchor="middle">
+    <text x="400" y="520" fill="#333">Dumpling Stall</text>
+    <text x="400" y="560" fill="#666" font-size="24">Placeholder image</text>
+  </g>
+</svg>

@@ -1,0 +1,233 @@
+/* HawkerGo — KFC-style order thank you kiosk */
+
+.hg-thankyou-page {
+  background: #fff;
+  min-height: 100vh;
+  padding: 0 0 2rem;
+}
+
+.hg-thankyou-kiosk {
+  max-width: 520px;
+  margin: 0 auto;
+  background: #fff;
+  text-align: center;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #111;
+}
+
+.hg-thankyou-stripes {
+  height: 28px;
+  background: repeating-linear-gradient(
+    90deg,
+    #f5b800 0,
+    #f5b800 18px,
+    #fff 18px,
+    #fff 36px
+  );
+  border-bottom: 3px solid #e0a600;
+}
+
+.hg-thankyou-brand {
+  padding: 1.25rem 1.5rem .5rem;
+}
+
+.hg-thankyou-brand .hg-logo {
+  justify-content: center;
+}
+
+.hg-thankyou-body {
+  padding: 1rem 1.75rem 1.5rem;
+}
+
+.hg-thankyou-title {
+  font-size: 2.35rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  margin: 0 0 1rem;
+  color: #111;
+}
+
+.hg-thankyou-note {
+  font-size: 1.05rem;
+  color: #333;
+  margin: 0 0 .35rem;
+  line-height: 1.45;
+}
+
+.hg-thankyou-scan {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #d62323;
+  margin: 0 0 1.25rem;
+}
+
+.hg-thankyou-qr-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+.hg-thankyou-qr {
+  width: 220px;
+  height: 220px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.hg-thankyou-qr-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f5b800, #e0a600);
+  color: #1f1f1f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.hg-thankyou-queue-label {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin: 0 0 .25rem;
+  color: #111;
+}
+
+.hg-thankyou-queue-number {
+  font-size: 5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #d62323;
+  margin: 0 0 .75rem;
+  letter-spacing: 0.02em;
+}
+
+.hg-thankyou-queue-extra {
+  font-size: .95rem;
+  color: #444;
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+
+.hg-thankyou-stall-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  font-size: .92rem;
+  color: #333;
+}
+
+.hg-thankyou-stall-list li {
+  margin-bottom: .35rem;
+}
+
+.hg-thankyou-code {
+  display: inline-block;
+  padding: .45rem .9rem;
+  border-radius: 999px;
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  font-size: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.hg-thankyou-pickup {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin: 0 0 1.5rem;
+  line-height: 1.45;
+  color: #111;
+}
+
+.hg-thankyou-email {
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto 1rem;
+  display: block;
+  border: 2px solid #ccc;
+  border-radius: 999px;
+  padding: .85rem 1.25rem;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #333;
+  outline: none;
+}
+
+.hg-thankyou-email:focus {
+  border-color: #f5b800;
+  box-shadow: 0 0 0 3px rgba(245, 184, 0, 0.2);
+}
+
+.hg-thankyou-email::placeholder {
+  color: #888;
+}
+
+.hg-thankyou-done {
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+  display: block;
+  border: none;
+  border-radius: 999px;
+  padding: .95rem 1.5rem;
+  background: #d62323;
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.hg-thankyou-done:hover,
+.hg-thankyou-done:focus {
+  background: #b81c1c;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.hg-thankyou-footer-img {
+  margin-top: 1.75rem;
+  height: 180px;
+  background:
+    linear-gradient(to top, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.05)),
+    linear-gradient(135deg, #f7b731 0%, #e8500e 45%, #c0392b 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 1.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 3rem;
+}
+
+.hg-thankyou-type {
+  font-size: .88rem;
+  color: #666;
+  margin-bottom: .75rem;
+}
+
+@media (max-width: 575px) {
+  .hg-thankyou-title {
+    font-size: 1.85rem;
+  }
+
+  .hg-thankyou-queue-number {
+    font-size: 4rem;
+  }
+
+  .hg-thankyou-body {
+    padding: 1rem 1.25rem 1.25rem;
+  }
+}

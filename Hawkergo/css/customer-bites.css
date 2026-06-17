@@ -1,0 +1,401 @@
+/* HawkerGo — Bites-style theme for all customer pages */
+
+:root {
+  --hg-cream: #fdf8ee;
+  --hg-cream-dark: #f5eed9;
+  --hg-gold: #f5b800;
+  --hg-gold-dark: #e0a600;
+  --hg-orange: #ff8c00;
+  --hg-text: #1f1f1f;
+  --hg-muted: #6b6560;
+  --hg-white: #ffffff;
+  --hg-shadow: 0 12px 40px rgba(45, 35, 15, 0.08);
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--hg-cream) !important;
+  color: var(--hg-text);
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Light navbar */
+#header .navbar {
+  background: var(--hg-cream) !important;
+  background-image: none !important;
+  box-shadow: 0 2px 20px rgba(45, 35, 15, 0.06);
+  border-bottom: 1px solid rgba(45, 35, 15, 0.06);
+}
+
+#header .navbar-nav .nav-link,
+.navbar .nav-link {
+  color: var(--hg-text) !important;
+  font-weight: 600;
+}
+
+#header .navbar-nav .nav-link:hover,
+.navbar .nav-link:hover {
+  color: var(--hg-orange) !important;
+}
+
+#header .navbar-toggler {
+  color: var(--hg-text);
+  border-color: rgba(45, 35, 15, 0.2);
+}
+
+#header .navbar-nav .nav-link.active,
+.navbar .nav-link.active {
+  color: var(--hg-orange) !important;
+}
+
+.hg-customer-navbar.navbar-light .navbar-nav .nav-link {
+  color: var(--hg-text) !important;
+}
+
+/* Shared buttons (home + inner pages) */
+.hg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: 2px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.hg-btn:hover,
+.hg-btn:focus {
+  transform: translateY(-2px);
+  text-decoration: none;
+  outline: none;
+}
+
+.hg-btn--outline-dark {
+  background: transparent;
+  color: var(--hg-text) !important;
+  border-color: rgba(45, 35, 15, 0.2);
+}
+
+.hg-btn--outline-dark:hover {
+  border-color: var(--hg-gold);
+  background: var(--hg-white);
+  color: var(--hg-text) !important;
+}
+
+/* Footer (shared) */
+.hg-footer {
+  background: #141414;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 3rem 0 2rem;
+}
+
+.hg-footer-brand {
+  margin-bottom: 1rem;
+}
+
+.hg-footer h5 {
+  color: #fff !important;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hg-footer p {
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.65;
+  font-size: 0.92rem;
+}
+
+.hg-footer-links a {
+  color: rgba(255, 255, 255, 0.75);
+  display: block;
+  margin-bottom: 0.45rem;
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+
+.hg-footer-links a:hover {
+  color: var(--hg-gold);
+}
+
+.hg-footer-bottom {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.85rem;
+}
+
+/* Primary buttons (was purple) */
+.btn-purple,
+.theme-btn-dash,
+.btn-auth-primary,
+.account-edit-btn,
+.account-update-btn {
+  background: var(--hg-gold) !important;
+  background-image: none !important;
+  border: none !important;
+  color: var(--hg-text) !important;
+  font-weight: 700;
+  border-radius: 999px;
+  box-shadow: 0 8px 22px rgba(245, 184, 0, 0.3);
+}
+
+.btn-purple:hover,
+.theme-btn-dash:hover,
+.btn-auth-primary:hover,
+.account-edit-btn:hover,
+.account-update-btn:hover {
+  background: var(--hg-gold-dark) !important;
+  color: var(--hg-text) !important;
+}
+
+.btn-outline-purple {
+  border-color: var(--hg-gold) !important;
+  color: var(--hg-text) !important;
+  border-radius: 999px;
+}
+
+.btn-outline-purple:hover {
+  background: var(--hg-gold) !important;
+  color: var(--hg-text) !important;
+}
+
+/* Inner page hero */
+.inner-page-hero {
+  background: linear-gradient(160deg, var(--hg-cream) 0%, var(--hg-cream-dark) 45%, rgba(245, 184, 0, 0.25) 100%) !important;
+  min-height: 280px;
+}
+
+.inner-page-hero::before {
+  background: radial-gradient(circle, rgba(245, 184, 0, 0.15) 0%, transparent 70%);
+}
+
+.page-title {
+  color: var(--hg-text) !important;
+}
+
+.page-subtitle {
+  color: var(--hg-muted) !important;
+}
+
+.top-links .links .link-item.active {
+  border-color: rgba(245, 184, 0, 0.45);
+}
+
+.top-links .links .link-item span {
+  background: var(--hg-gold);
+  color: var(--hg-text);
+}
+
+/* Hawker stall cards */
+.hawkerstall-card .hawkerstall-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  background: var(--hg-cream-dark);
+}
+
+.hawkerstall-card .hawkerstall-logo img {
+  object-fit: contain !important;
+}
+
+.hawkerstall-card h5 a:hover {
+  color: var(--hg-orange);
+}
+
+/* Orders */
+.orders-card .card-title {
+  color: var(--hg-text) !important;
+}
+
+.orders-card .table thead th {
+  background: var(--hg-text) !important;
+  border-color: #333 !important;
+}
+
+.orders-empty {
+  color: var(--hg-muted);
+}
+
+/* Modals */
+.hg-modal-header {
+  background: linear-gradient(135deg, var(--hg-gold), var(--hg-gold-dark)) !important;
+  color: var(--hg-text) !important;
+}
+
+.hg-modal-header--accent {
+  background: linear-gradient(135deg, var(--hg-gold-dark), #c99200) !important;
+}
+
+.hg-modal-header .close {
+  color: var(--hg-text) !important;
+  opacity: 0.7;
+}
+
+.hg-modal-body {
+  background: var(--hg-cream) !important;
+}
+
+.hg-empty-state i,
+.hg-menu-stall,
+.hg-price,
+.stall-menu-in-cart {
+  color: var(--hg-orange) !important;
+}
+
+.hg-menu-tabs .nav-link.active {
+  background: var(--hg-gold) !important;
+  color: var(--hg-text) !important;
+}
+
+.hg-order-type-option input:checked + .hg-order-type-box,
+.hg-payment-option input:checked + .hg-payment-box {
+  border-color: var(--hg-gold) !important;
+  background: rgba(245, 184, 0, 0.12) !important;
+}
+
+.hg-order-type-box i,
+.hg-payment-box i {
+  color: var(--hg-orange) !important;
+}
+
+.hg-login-notice {
+  background: rgba(245, 184, 0, 0.15) !important;
+  color: var(--hg-text) !important;
+}
+
+.hg-qty-btn:hover {
+  border-color: var(--hg-gold) !important;
+  color: var(--hg-orange) !important;
+}
+
+/* Checkout page */
+.cart-page h2 {
+  color: var(--hg-text) !important;
+}
+
+.cart-empty i {
+  color: var(--hg-gold) !important;
+}
+
+.order-type-summary {
+  background: rgba(245, 184, 0, 0.18) !important;
+  color: var(--hg-text) !important;
+}
+
+.checkout-login-banner {
+  background: rgba(245, 184, 0, 0.12) !important;
+  border-color: rgba(245, 184, 0, 0.35) !important;
+}
+
+.checkout-login-banner strong {
+  color: var(--hg-orange) !important;
+}
+
+.checkout-login-card {
+  background: var(--hg-white) !important;
+  border-color: rgba(45, 35, 15, 0.08) !important;
+}
+
+/* My Account */
+.account-hero {
+  background: linear-gradient(135deg, var(--hg-gold) 0%, var(--hg-gold-dark) 55%, #c99200 100%) !important;
+  color: var(--hg-text) !important;
+  box-shadow: var(--hg-shadow) !important;
+}
+
+.account-hero h1,
+.account-hero p {
+  color: var(--hg-text) !important;
+}
+
+.account-avatar {
+  background: rgba(255, 255, 255, 0.35) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  color: var(--hg-text) !important;
+}
+
+.account-stat-icon,
+.detail-icon {
+  background: rgba(245, 184, 0, 0.2) !important;
+  color: var(--hg-orange) !important;
+}
+
+.account-stat strong,
+.detail-value,
+.account-panel-title {
+  color: var(--hg-text) !important;
+}
+
+.detail-item {
+  background: var(--hg-cream) !important;
+  border-color: rgba(45, 35, 15, 0.06) !important;
+}
+
+.auth-input-wrap .form-control:focus {
+  border-color: var(--hg-gold) !important;
+  box-shadow: 0 0 0 3px rgba(245, 184, 0, 0.2) !important;
+}
+
+.auth-links a {
+  color: var(--hg-orange) !important;
+}
+
+.auth-forgot-wrap a {
+  color: var(--hg-orange) !important;
+}
+
+.auth-forgot-wrap a:hover {
+  color: var(--hg-gold-dark, #e0a600) !important;
+}
+
+.auth-hero {
+  background: linear-gradient(135deg, var(--hg-gold) 0%, var(--hg-gold-dark) 55%, #c99200 100%) !important;
+  color: var(--hg-text) !important;
+  box-shadow: var(--hg-shadow) !important;
+}
+
+.auth-hero h1,
+.auth-hero p {
+  color: var(--hg-text) !important;
+}
+
+.auth-panel-title {
+  color: var(--hg-text) !important;
+}
+
+/* Thank you page */
+.hg-thankyou-page {
+  background: var(--hg-cream) !important;
+}
+
+.hg-thankyou-stripes {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--hg-gold) 0,
+    var(--hg-gold) 18px,
+    #fff 18px,
+    #fff 36px
+  ) !important;
+  border-bottom-color: var(--hg-gold-dark) !important;
+}
+
+.hg-thankyou-queue-label {
+  color: var(--hg-orange) !important;
+}
+
+/* Footer on legacy pages */
+.footer {
+  background: #141414 !important;
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HawkerGo User Guide</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="../css/customer-bites.css" rel="stylesheet">
+    <style>
+        body { background: #fdf8ee; font-family: 'Plus Jakarta Sans', sans-serif; color: #1f1f1f; line-height: 1.65; }
+        .hg-guide-wrap { max-width: 820px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+        .hg-guide-hero { background: linear-gradient(145deg, #1f1f1f, #3d3018); color: #fff; border-radius: 22px; padding: 2rem; margin-bottom: 2rem; }
+        .hg-guide-hero h1 { font-weight: 800; margin: 0 0 .5rem; font-size: 2rem; }
+        .hg-guide-hero p { margin: 0; opacity: .9; }
+        .hg-guide-card { background: #fff; border-radius: 18px; padding: 1.5rem 1.75rem; margin-bottom: 1.25rem; border: 1px solid rgba(45,35,15,.06); box-shadow: 0 10px 28px rgba(45,35,15,.05); }
+        .hg-guide-card h2 { font-size: 1.25rem; font-weight: 800; color: #1f1f1f; margin: 0 0 .75rem; }
+        .hg-guide-card h2 i { color: #f5b800; margin-right: .35rem; }
+        .hg-guide-card h3 { font-size: 1rem; font-weight: 700; margin: 1rem 0 .5rem; }
+        .hg-guide-card ul, .hg-guide-card ol { padding-left: 1.25rem; margin-bottom: .75rem; }
+        .hg-guide-card li { margin-bottom: .35rem; }
+        .hg-guide-links { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
+        .hg-guide-links a { display: inline-flex; align-items: center; gap: .35rem; background: #f5b800; color: #1f1f1f; font-weight: 700; padding: .5rem 1rem; border-radius: 999px; text-decoration: none; font-size: .88rem; }
+        .hg-guide-links a:hover { background: #ff8c00; color: #1f1f1f; text-decoration: none; }
+        table { width: 100%; border-collapse: collapse; font-size: .92rem; margin: .75rem 0; }
+        th, td { border: 1px solid rgba(45,35,15,.1); padding: .55rem .75rem; text-align: left; }
+        th { background: rgba(245,184,0,.15); font-weight: 700; }
+        code { background: rgba(245,184,0,.12); padding: .1rem .35rem; border-radius: 4px; font-size: .88em; }
+        .hg-guide-back { margin-bottom: 1rem; }
+        .hg-guide-back a { color: #ff8c00; font-weight: 600; }
+    </style>
+</head>
+<body>
+<div class="hg-guide-wrap">
+    <p class="hg-guide-back"><a href="../customer/index.php"><i class="fa fa-arrow-left"></i> Back to HawkerGo</a></p>
+
+    <div class="hg-guide-hero">
+        <h1><i class="fa fa-book"></i> HawkerGo User Guide</h1>
+        <p>How to use the Customer, Hawker, and Admin portals.</p>
+    </div>
+
+    <div class="hg-guide-links">
+        <a href="../customer/index.php"><i class="fa fa-shopping-bag"></i> Customer site</a>
+        <a href="../hawker/index.php"><i class="fa fa-store"></i> Hawker portal</a>
+        <a href="../admin/index.php"><i class="fa fa-shield"></i> Admin panel</a>
+    </div>
+
+    <div class="hg-guide-card">
+        <h2><i class="fa fa-play-circle"></i> Getting started</h2>
+        <ol>
+            <li>Start Apache and MySQL in XAMPP.</li>
+            <li>Import <code>DATABASE FILE/hawker.sql</code> into MySQL.</li>
+            <li>Open the customer site, hawker portal, or admin panel using the buttons above.</li>
+        </ol>
+    </div>
+
+    <div class="hg-guide-card">
+        <h2><i class="fa fa-user"></i> Customer portal</h2>
+        <p>Browse stalls, add items to cart, checkout (login, register, or guest), and track orders.</p>
+        <h3>Main features</h3>
+        <ul>
+            <li><strong>My Cart</strong> — Review and change quantities before checkout.</li>
+            <li><strong>My Orders</strong> — Track queue number and order status.</li>
+            <li><strong>Reviews</strong> — Rate dishes and stalls after order is completed.</li>
+            <li><strong>Forgot password</strong> — Reset using username or email from the login page.</li>
+        </ul>
+    </div>
+
+    <div class="hg-guide-card">
+        <h2><i class="fa fa-store"></i> Hawker portal</h2>
+        <p>Each stall has one portal account linked to the stall name in the database.</p>
+        <h3>Sign in</h3>
+        <ol>
+            <li>Select your <strong>stall name</strong> (with photo).</li>
+            <li>Enter your password.</li>
+        </ol>
+        <h3>Register</h3>
+        <p>Choose an available stall, set username and password. Stalls that already have accounts show as registered.</p>
+        <h3>Day-to-day tasks</h3>
+        <ul>
+            <li>Manage incoming <strong>orders</strong> (preparing → ready → complete).</li>
+            <li>Mark menu items <strong>sold out</strong>.</li>
+            <li>View <strong>statements</strong> and <strong>report payment issues</strong> to admin.</li>
+        </ul>
+    </div>
+
+    <div class="hg-guide-card">
+        <h2><i class="fa fa-shield"></i> Admin portal</h2>
+        <p>Manage customers, stalls, menus, all orders, ordering control, payment issues, and sales reports.</p>
+        <table>
+            <thead><tr><th>Section</th><th>Purpose</th></tr></thead>
+            <tbody>
+                <tr><td>Users</td><td>Customer accounts</td></tr>
+                <tr><td>Hawker Stalls</td><td>Stalls, categories, images</td></tr>
+                <tr><td>Menu</td><td>Dishes and photos</td></tr>
+                <tr><td>Orders</td><td>All orders system-wide</td></tr>
+                <tr><td>Ordering Control</td><td>Enable/disable ordering per stall</td></tr>
+                <tr><td>Payment Issues</td><td>Hawker payment reports</td></tr>
+                <tr><td>Statements</td><td>Revenue reports</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="hg-guide-card">
+        <h2><i class="fa fa-folder-open"></i> Project folders</h2>
+        <table>
+            <thead><tr><th>Folder</th><th>Contents</th></tr></thead>
+            <tbody>
+                <tr><td><code>customer/</code></td><td>Customer website pages</td></tr>
+                <tr><td><code>hawker/</code></td><td>Hawker stall portal</td></tr>
+                <tr><td><code>admin/</code></td><td>Admin panel + uploaded images</td></tr>
+                <tr><td><code>includes/</code></td><td>Shared PHP helpers</td></tr>
+                <tr><td><code>connection/</code></td><td>Database settings</td></tr>
+                <tr><td><code>docs/</code></td><td>This user guide</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="hg-guide-card">
+        <h2><i class="fa fa-wrench"></i> Troubleshooting</h2>
+        <ul>
+            <li><strong>Database errors</strong> — Check MySQL is running and database <code>hawker</code> exists.</li>
+            <li><strong>Missing images</strong> — Files should be in <code>admin/Res_img/</code>.</li>
+            <li><strong>Hawker cannot register</strong> — Stall may already have an account; use Forgot password or add a new stall in admin.</li>
+        </ul>
+    </div>
+
+    <p class="text-muted small text-center" style="margin-top:2rem;">Full text version: <a href="USER_GUIDE.md">USER_GUIDE.md</a></p>
+</div>
+</body>
+</html>
